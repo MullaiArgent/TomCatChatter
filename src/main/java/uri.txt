@@ -1,0 +1,23 @@
+https://accounts.google.com/o/oauth2/auth?
+ scope=email&
+ state=mystate&
+ redirect_uri=http://localhost:8080/TomCatChatter_war/app&
+ response_type=code&
+ client_id=742752216337-996jhlmmvjbv6jgp0pdp5iek70kk31hr.apps.googleusercontent.com&
+ approval_prompt=force
+
+// returns a "Code" in the URl                                          \/
+https://accounts.google.com/o/oauth2/token?grant_type=authorization_code&code=4%2F0AX4XfWgGVrvnf9w1JrP9OwxkF5Z7y-5Cs8PNvMJfKPDVe-jGthzpPq6KqWDlAwxpPhmYHA&client_id=742752216337-996jhlmmvjbv6jgp0pdp5iek70kk31hr.apps.googleusercontent.com&client_secret=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&redirect_uri=http://localhost:8080/TomCatChatter_war/app
+
+// returns
+
+{
+ "access_token":"ya29.1.AADtN_WY1SHPAYomlwrcutZZnw
+ WToBds-DbrYvqIsUUStWKodxdf4YwKBK0d1BradEvh",
+ "token_type":"Bearer",
+ "expires_in":3600,
+ "id_token":""
+}
+
+cid :  742752216337-996jhlmmvjbv6jgp0pdp5iek70kk31hr.apps.googleusercontent.com
+cs  :  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

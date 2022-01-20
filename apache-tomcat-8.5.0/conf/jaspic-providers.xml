@@ -1,0 +1,16 @@
+<jaspic-providers>
+    <provider name="google-oauth"
+              className="org.apache.catalina.authenticator.jaspic.SimpleAuthConfigProvider"
+              layer="HttpServlet"
+              appContext="Catalina/localhost /contextPath"
+              description="Google oauth test">
+        <property name="org.apache.catalina.authenticator.jaspic.ServerAuthModule.1"
+                  value="com.idmworks.security.google.GoogleOAuthServerAuthModule" />
+        <property name="oauth.clientid"
+                  value="742752216337-996jhlmmvjbv6jgp0pdp5iek70kk31hr.apps.googleusercontent.com" />
+        <property name="oauth.clientsecret"
+                  value="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" />
+        <property name="ignore_missing_login_context"
+                  value="true" />
+    </provider>
+</jaspic-providers>
