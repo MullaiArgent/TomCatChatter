@@ -35,9 +35,6 @@ public class Register extends HttpServlet {
             } catch (ClassNotFoundException | SQLException e) {
                 e.printStackTrace();
             }
-
-
-
             res.sendRedirect("app");
         }else{
             res.sendRedirect("adduser");

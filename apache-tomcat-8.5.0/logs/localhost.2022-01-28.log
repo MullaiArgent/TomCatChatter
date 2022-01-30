@@ -1,0 +1,8 @@
+28-Jan-2022 12:26:35.147 INFO [main] org.apache.catalina.core.ApplicationContext.log ContextListener: contextInitialized()
+28-Jan-2022 12:26:35.147 INFO [main] org.apache.catalina.core.ApplicationContext.log SessionListener: contextInitialized()
+28-Jan-2022 12:26:40.348 INFO [main] org.apache.catalina.core.ApplicationContext.log SessionListener: contextDestroyed()
+28-Jan-2022 12:26:40.348 INFO [main] org.apache.catalina.core.ApplicationContext.log ContextListener: contextDestroyed()
+28-Jan-2022 12:27:16.014 INFO [main] org.apache.catalina.core.ApplicationContext.log ContextListener: contextInitialized()
+28-Jan-2022 12:27:16.014 INFO [main] org.apache.catalina.core.ApplicationContext.log SessionListener: contextInitialized()
+28-Jan-2022 12:27:31.701 INFO [Thread-2] org.apache.catalina.core.ApplicationContext.log SessionListener: contextDestroyed()
+28-Jan-2022 12:27:31.701 INFO [Thread-2] org.apache.catalina.core.ApplicationContext.log ContextListener: contextDestroyed()

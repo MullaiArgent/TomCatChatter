@@ -64,7 +64,9 @@ public final class GoogleOAuth {
     public String getStateToken(){
         return stateToken;
     }
-    public String getValues(String json, String key) {
+
+
+    public static String getValues(String json, String key) {
         StringBuilder value = new StringBuilder();
         for (int i = 0; i < json.length();i++){
             if (json.charAt(i)==key.charAt(0)){
@@ -78,12 +80,21 @@ public final class GoogleOAuth {
                 }
             }
         }
-        return value.substring(3, value.length()-1);
+        System.out.println("from the json editor" + value);
+        if (key.equals("id_token")){
+            return value.substring(2, value.length() - 1);
+        }else{
+            return value.substring(3, value.length() - 1);
+        }
     }
+    String accessToken = null;
 
     public String getUserInfoJson(final String authCode) throws IOException {
 
+
         final GoogleTokenResponse response = flow.newTokenRequest(authCode).setRedirectUri(CALLBACK_URI).execute();
+        System.out.println(response);
+        accessToken = getValues(String.valueOf(response), "id_token");
         final Credential credential = flow.createAndStoreCredential(response, null);
         final HttpRequestFactory requestFactory = HTTP_TRANSPORT.createRequestFactory(credential);
         final GenericUrl url = new GenericUrl(USER_INFO_URL);
@@ -92,6 +103,10 @@ public final class GoogleOAuth {
         System.out.println(request.execute().parseAsString());
         return request.execute().parseAsString();
 
+    }
+    public String getAccessToken(final String authCode) throws IOException{
+        System.out.println(accessToken);
+        return accessToken;
     }
 
 

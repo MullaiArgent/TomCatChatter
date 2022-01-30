@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet(urlPatterns = "/adduser")
-public class NewUser extends HttpServlet {
+public class AddUser extends HttpServlet {
     @Override
     public void service(HttpServletRequest req, HttpServletResponse res) throws IOException {
         res.sendRedirect("register.jsp");

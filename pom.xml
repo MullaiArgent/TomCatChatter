@@ -37,7 +37,7 @@
     <dependency>
       <groupId>org.postgresql</groupId>
       <artifactId>postgresql</artifactId>
-      <version>42.2.23</version>
+      <version>42.3.1</version>
     </dependency>
     <dependency>
       <groupId>commons-fileupload</groupId>
@@ -47,7 +47,7 @@
     <dependency>
       <groupId>com.google.http-client</groupId>
       <artifactId>google-http-client</artifactId>
-      <version>1.41.0</version>
+      <version>1.41.1</version>
     </dependency>
     <dependency>
       <groupId>com.google.http-client</groupId>
@@ -63,18 +63,35 @@
     <dependency>
       <groupId>com.google.oauth-client</groupId>
       <artifactId>google-oauth-client</artifactId>
-      <version>1.32.1</version>
+      <version>1.33.0</version>
     </dependency>
     <dependency>
       <groupId>com.google.api-client</groupId>
       <artifactId>google-api-client</artifactId>
-      <version>1.33.0</version>
+      <version>1.33.1</version>
     </dependency>
+    <dependency>
+      <groupId>org.apache.tomcat</groupId>
+      <artifactId>tomcat-catalina</artifactId>
+      <version>10.0.14</version>
+    </dependency>
+
 
     <dependency>
       <groupId>com.vaadin.external.google</groupId>
       <artifactId>android-json</artifactId>
       <version>0.0.20131108.vaadin1</version>
+    </dependency>
+      <dependency>
+          <groupId>javax.security</groupId>
+          <artifactId>security-api</artifactId>
+          <version>1.1-rev-1</version>
+      </dependency>
+    <dependency>
+      <groupId>javax.security.jacc</groupId>
+      <artifactId>javax.security.jacc-api</artifactId>
+      <version>1.6</version>
+      <scope>compile</scope>
     </dependency>
   </dependencies>
   <repositories>
