@@ -17,21 +17,30 @@
 -->
 <!-- The contents of this file will be loaded for each web application -->
 <Context>
+    <Realm className="org.apache.catalina.realm.CombinedRealm">
+
+    <Realm className="org.apache.catalina.realm.JAASRealm"
+           appName="AuthLoginModule"
+           userClassNames="JaasSecurity.UserPrincipal"
+           roleClassNames="JaasSecurity.RolePrincipal"/>
+
+    <Realm className="org.apache.catalina.realm.JDBCRealm"
+           driverName="com.mysql.cj.jdbc.Driver"
+           connectionURL="jdbc:mysql://localhost/tomcatusers?user=tom&amp;password=testpassword"
+           userTable="users"
+           userNameCol="user_name" userCredCol="user_pass"
+           userRoleTable="users_roles"
+           roleNameCol="role_name"/>
+    </Realm>
 
     <!-- Default set of monitored resources. If one of these changes, the    -->
     <!-- web application will be reloaded.                                   -->
-    <context>
-    <Realm className="org.apache.catalina.realm.JAASRealm"
-           appName="AuthLoginModule"
-           userClassNames="oauth.UserPrincipal"
-           roleClassNames="oauth.RolePrincipal"/>
-    </context>
     <WatchedResource>WEB-INF/web.xml</WatchedResource>
     <WatchedResource>WEB-INF/tomcat-web.xml</WatchedResource>
     <WatchedResource>${catalina.base}/conf/web.xml</WatchedResource>
 
     <!-- Uncomment this to disable session persistence across Tomcat restarts -->
-    <!--
+<!--
     <Manager pathname="" />
-    -->
+-->
 </Context>

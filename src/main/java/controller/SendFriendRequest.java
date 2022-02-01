@@ -1,7 +1,6 @@
 package controller;
 
 import datamanagement.JDBC;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,25 +11,26 @@ import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-@WebServlet(urlPatterns = "/addFriend")
-public class AddFriend extends HttpServlet {
+@WebServlet(urlPatterns = "/sendFriendRequest")
+public class SendFriendRequest extends HttpServlet {
     JDBC db = new JDBC();
     @Override
     public void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         String friendId = req.getParameter("addFriend");
-
         try {
             ResultSet rs = db.dql("SELECT * FROM public.\"USERS\";");
             while (rs.next()){
                 if (friendId.equals(rs.getString(1))){
-                    System.out.println("friend exist "+friendId);
+                    System.out.println("friend exist "+friendId); // TODO check if the requested is is already a friend
                     req.getSession().setAttribute("friendId",friendId);
-                    RequestDispatcher rd =  req.getRequestDispatcher("addFriend.jsp");
-
+                    req.getSession().setAttribute("friendImage",rs.getString(3));
+                    RequestDispatcher rd =  req.getRequestDispatcher("sendFriendRequest.jsp");
                     rd.forward(req, res);
                     break;
                 }
             }
+
+            // TODO send a mail to join in the application
 
             res.sendRedirect("app");
         } catch (SQLException | ClassNotFoundException e) {

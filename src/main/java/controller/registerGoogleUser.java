@@ -22,7 +22,7 @@ public class registerGoogleUser extends HttpServlet {
 
         userId = req.getParameter("email");
         fullName = req.getParameter("name");
-        profilePic = req.getParameter("profile_pic");
+        profilePic = req.getParameter("picture");
 
         try {
             db.dml("INSERT INTO public.\"USERS\" VALUES ('" + userId + "','" + fullName + "','" + profilePic + "','{}');");

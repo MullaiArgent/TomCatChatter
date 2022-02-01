@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/html" lang="en">
+<head>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css-login">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -53,10 +54,13 @@
 <%
     response.setHeader("Cache-Control","no-cache, no-store, must-revalidate");
 %>
-<div style="text-align: center;"> <h2> Add <%= request.getSession().getAttribute("friendId")%>  into your Friends list ?</h2> </div>
+<div style="text-align: center;">
+    <% out.println("<img src=" + request.getSession().getAttribute("friendImage") + ">"); %>
+    <h2> Add <%= request.getSession().getAttribute("friendId") %>  into your Friends list ?</h2>
+</div>
 <div class="container">
-    <form action="confirm" method="POST">
-        <button type="submit"  value = "confirm" name="confirm">Add</button>
+    <form action="confirmOutGoingFriendRequest" method="POST">
+        <button type="submit"  value = "confirm" name="confirm">Send Friend Request</button>
         <br><br>
     </form>
     <form action="cancel_friend">
@@ -64,4 +68,4 @@
     </form>
 </div>
 </body>
-</html>
+</html/

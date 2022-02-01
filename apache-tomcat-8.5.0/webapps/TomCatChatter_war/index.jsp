@@ -7,6 +7,7 @@
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" type=""></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" type=""></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" type="text/css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style type="">
         .container{
             max-width:1700px;
@@ -207,6 +208,11 @@
             top:5px;
             background: #05728f;
         }
+        .notification{
+
+            position:fixed;
+            background: #ffffff;
+        }
     </style>
 
     <title><%= request.getRemoteUser() %></title>
@@ -230,13 +236,16 @@
                     </div>
                     <div class="srch_bar">
                         <div class="stylish-input-group">
-                            <form action="addFriend" method="POST">
+                            <!-- SEND FRIEND REQUEST  -->
+                            <form action="sendFriendRequest" method="POST">
                                 <label for="search-box"></label>
                                     <input type="text" id="search-box" class="search-bar" placeholder="@UserId" name="addFriend">
                                         <span class="input-group-addon">
                                             <button type="submit"> <i class="fa fa-user-plus" aria-hidden="true"></i> </button>
                                         </span>
+
                             </form>
+                            <!-- SEND FRIEND REQUEST ENDS HERE -->
                         </div>
                     </div>
                     <form action="logout" align="right" method="POST" >
@@ -244,6 +253,7 @@
                             <input name="submit2" type="submit" id="submit2" value="log out">
                         </label>
                     </form>
+
                 </div>
                 <div class="inbox_chat">
                     <!-- RECENT CHATS -->
@@ -256,8 +266,7 @@
                                 </div>
                                 <div class="chat_ib">
                                     <label>
-
-                                            <p style="color: black"><c:out value="${i.friendId}"/></p>
+                                         <p style="color: black"><c:out value="${i.friendId}"/></p>
                                     </label> <h6  class="chat_date"><c:out value="${i.lastDate}"/></h6>
 
                                     <p>${i.lastMessage}</p>
@@ -265,12 +274,23 @@
                             </div>
 
                         </button>
-                        <input  value="${i.friendId}" name="friendId" hidden />
+                        <label>
+                            <input  value="${i.friendId}" name="friendId" hidden />
+                        </label>
                     </form>
                     </c:forEach>
                 </div>
                     <!-- RECENT CHAT ENDS HERE -->
             </div>
+
+
+            <!-- THE NOTIFICATION STUFFS STARTS HERE -->
+            <form action="notification">
+            <button style="font-size:24px" class="notification">Notification <i class="material-icons" style="font-size:36px;color:red">notifications_none</i></button>
+            </form>
+
+            <!-- THE NOTIFICATION STUFFS ENDS HERE -->
+
                 <div class="mesgs">
                     <!-- for each for the msgs-->
                     <div class="msg_history">
@@ -278,7 +298,6 @@
                         <c:forEach items="${chatModels}" var="i">
                             <div class="outgoing_msg"><c:if test="${i.who == 'you'}">
                                 <div class="sent_msg">
-
 
                                     <c:if test="${i.type == 'image'}">
                                         <img src="${i.message}"  alt="img"/>
@@ -289,7 +308,6 @@
                                     </c:if>
 
                                     <span class="time_date">${i.timeAndDate}</span>
-
                                 </div>
                             </div>
                             </c:if>
@@ -313,7 +331,6 @@
                         </div>
                         </c:forEach>
                     </div>
-
                     <div class="type_msg">
                         <div class="input_msg_write">
                             <form action="send_message" method="POST">

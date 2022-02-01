@@ -1,4 +1,4 @@
-package oauth;
+package JaasSecurity;
 
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
@@ -104,7 +104,7 @@ public final class GoogleOAuth {
         return request.execute().parseAsString();
 
     }
-    public String getAccessToken(final String authCode) throws IOException{
+    public String getAccessToken() {
         System.out.println(accessToken);
         return accessToken;
     }

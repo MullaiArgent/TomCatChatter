@@ -9,7 +9,8 @@ import java.io.IOException;
 @WebServlet(urlPatterns = "/cancel_friend")
 public class CancleFriendController extends HttpServlet {
     public void service (HttpServletRequest req, HttpServletResponse res) throws IOException {
-        req.getSession().invalidate();
+        req.getSession().removeAttribute("friendId");
+        req.getSession().removeAttribute("friendImage");
         res.sendRedirect("app");
     }
 }

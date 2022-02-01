@@ -49,8 +49,8 @@ Caused by: java.net.BindException: Address already in use: bind
 28-Jan-2022 12:26:30.378 INFO [main] org.apache.catalina.startup.Catalina.load Server initialization in [1866] milliseconds
 28-Jan-2022 12:26:30.472 INFO [main] org.apache.catalina.core.StandardService.startInternal Starting service [Catalina]
 28-Jan-2022 12:26:30.472 INFO [main] org.apache.catalina.core.StandardEngine.startInternal Starting Servlet engine: [Apache Tomcat/9.0.55]
-28-Jan-2022 12:26:30.487 SEVERE [main] org.apache.catalina.realm.JAASRealm.parseClassNames Class [oauth.UserPrincipal] was not found
-28-Jan-2022 12:26:30.487 SEVERE [main] org.apache.catalina.realm.JAASRealm.parseClassNames Class [oauth.RolePrincipal] was not found
+28-Jan-2022 12:26:30.487 SEVERE [main] org.apache.catalina.realm.JAASRealm.parseClassNames Class [JaasSecurity.UserPrincipal] was not found
+28-Jan-2022 12:26:30.487 SEVERE [main] org.apache.catalina.realm.JAASRealm.parseClassNames Class [JaasSecurity.RolePrincipal] was not found
 28-Jan-2022 12:26:31.472 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [C:\Users\mulla\OneDrive\Documents\GitHub\TomCatChatter\apache-tomcat-8.5.0\webapps\docs]
 28-Jan-2022 12:26:31.519 WARNING [main] org.apache.tomcat.util.digester.Digester.endElement No rules found matching [Context/Context/Realm]
 28-Jan-2022 12:26:31.519 WARNING [main] org.apache.tomcat.util.digester.Digester.endElement No rules found matching [Context/Context]
@@ -161,8 +161,8 @@ Caused by: java.net.BindException: Address already in use: bind
 28-Jan-2022 12:27:13.310 INFO [main] org.apache.catalina.startup.Catalina.load Server initialization in [853] milliseconds
 28-Jan-2022 12:27:13.388 INFO [main] org.apache.catalina.core.StandardService.startInternal Starting service [Catalina]
 28-Jan-2022 12:27:13.388 INFO [main] org.apache.catalina.core.StandardEngine.startInternal Starting Servlet engine: [Apache Tomcat/9.0.55]
-28-Jan-2022 12:27:13.404 SEVERE [main] org.apache.catalina.realm.JAASRealm.parseClassNames Class [oauth.UserPrincipal] was not found
-28-Jan-2022 12:27:13.404 SEVERE [main] org.apache.catalina.realm.JAASRealm.parseClassNames Class [oauth.RolePrincipal] was not found
+28-Jan-2022 12:27:13.404 SEVERE [main] org.apache.catalina.realm.JAASRealm.parseClassNames Class [JaasSecurity.UserPrincipal] was not found
+28-Jan-2022 12:27:13.404 SEVERE [main] org.apache.catalina.realm.JAASRealm.parseClassNames Class [JaasSecurity.RolePrincipal] was not found
 28-Jan-2022 12:27:13.998 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [C:\Users\mulla\OneDrive\Documents\GitHub\TomCatChatter\apache-tomcat-8.5.0\webapps\docs]
 28-Jan-2022 12:27:14.013 WARNING [main] org.apache.tomcat.util.digester.Digester.endElement No rules found matching [Context/Context/Realm]
 28-Jan-2022 12:27:14.013 WARNING [main] org.apache.tomcat.util.digester.Digester.endElement No rules found matching [Context/Context]

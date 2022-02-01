@@ -20,7 +20,7 @@
 
   <login-config>
     <auth-method>FORM</auth-method>
-    <realm-name>User</realm-name>
+    <realm-name>AuthLoginModule</realm-name>
     <form-login-config>
       <form-login-page>/secure/login.jsp</form-login-page>
       <form-error-page>/secure/login-error.jsp</form-error-page>

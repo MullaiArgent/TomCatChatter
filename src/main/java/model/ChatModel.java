@@ -3,7 +3,7 @@ package model;
 
 public class ChatModel {
     private String who;
-    private String timeAndDate;  // 11:01 AM | June 9
+    private String timeAndDate;
     private String message;
     private String type;
 

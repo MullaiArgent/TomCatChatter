@@ -137,24 +137,15 @@
       <!-- Use the LockOutRealm to prevent attempts to guess user passwords
            via a brute-force attack -->
 
-          <Realm className="org.apache.catalina.realm.CombinedRealm">
-            <!-- This Realm uses the UserDatabase configured in the global JNDI
-                 resources under the key "UserDatabase".  Any edits
-                 that are performed against this UserDatabase are immediately
-                 available for use by the Realm.  -->
-            <Realm className="org.apache.catalina.realm.UserDatabaseRealm" resourceName="UserDatabase"/>
-            <Realm className="org.apache.catalina.realm.JDBCRealm"
-            driverName="com.mysql.cj.jdbc.Driver"
-            connectionURL="jdbc:mysql://localhost/tomcatusers?user=tom&amp;password=testpassword"
-            userTable="users"
-            userNameCol="user_name" userCredCol="user_pass"
-            userRoleTable="users_roles"
-            roleNameCol="role_name"/>
-            <Realm className="org.apache.catalina.realm.JAASRealm"
-                   appName="AuthLoginModule"
-                   userClassNames="oauth.UserPrincipal"
-                   roleClassNames="oauth.RolePrincipal"/>
-          </Realm>
+      <Realm className="org.apache.catalina.realm.CombinedRealm">
+        <!-- This Realm uses the UserDatabase configured in the global JNDI
+             resources under the key "UserDatabase".  Any edits
+             that are performed against this UserDatabase are immediately
+             available for use by the Realm.  -->
+        <Realm className="org.apache.catalina.realm.UserDatabaseRealm"
+               resourceName="UserDatabase"/>
+
+      </Realm>
       <Host appBase="webapps" autoDeploy="true" name="localhost" unpackWARs="true">
         <!-- SingleSignOn valve, share authentication between web applications
              Documentation at: /docs/config/valve.html -->

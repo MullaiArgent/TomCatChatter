@@ -1,6 +1,9 @@
-package oauth;
-import datamanagement.JDBC;
+package JaasSecurity;
 
+import javax.security.auth.Subject;
+import javax.security.auth.callback.*;
+import javax.security.auth.login.LoginException;
+import javax.security.auth.spi.LoginModule;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -11,15 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import javax.security.auth.Subject;
-import javax.security.auth.callback.Callback;
-import javax.security.auth.callback.CallbackHandler;
-import javax.security.auth.callback.NameCallback;
-import javax.security.auth.callback.PasswordCallback;
-import javax.security.auth.callback.UnsupportedCallbackException;
-import javax.security.auth.login.LoginException;
-import javax.security.auth.spi.LoginModule;
-
 public class AuthLoginModule implements LoginModule{
 
     private CallbackHandler handler;
@@ -28,7 +22,9 @@ public class AuthLoginModule implements LoginModule{
     private RolePrincipal rolePrincipal;
     private String login;
     private List<String> userGroups;
-    private final JDBC jdbc = new JDBC();
+    public Map<String, ?> sharedState;
+    public Map<String, ?> options;
+    boolean loginCompleted = false;
 
     @Override
     public void initialize(Subject subject,
@@ -36,8 +32,10 @@ public class AuthLoginModule implements LoginModule{
                            Map<String, ?> sharedState,
                            Map<String, ?> options) {
 
-        handler = callbackHandler;
         this.subject = subject;
+        this.handler = callbackHandler;
+        this.sharedState = sharedState;
+        this.options = options;
         System.out.println(subject + " from initialize");
     }
 
@@ -47,13 +45,12 @@ public class AuthLoginModule implements LoginModule{
         Callback[] callbacks = new Callback[2];
         callbacks[0] = new NameCallback("login");
         callbacks[1] = new PasswordCallback("password", true);
-        Boolean isVerfied;
+        boolean isVerified;
 
         try {
             handler.handle(callbacks);
             String name = ((NameCallback) callbacks[0]).getName();
-            String token = String.valueOf(((PasswordCallback) callbacks[1])
-                    .getPassword());
+            String token = String.valueOf(((PasswordCallback) callbacks[1]).getPassword());
 
             URL url = new URL("https://oauth2.googleapis.com/tokeninfo?id_token=" + token);
             HttpURLConnection con = (HttpURLConnection)url.openConnection();
@@ -67,15 +64,16 @@ public class AuthLoginModule implements LoginModule{
                 while ((responseLine = br.readLine()) != null) {
                     response.append(responseLine.trim());
                 }
-                isVerfied = String.valueOf(Boolean.valueOf(GoogleOAuth.getValues(String.valueOf(response), "email_verified"))).equals("true");
+                isVerified = String.valueOf(Boolean.valueOf(GoogleOAuth.getValues(String.valueOf(response), "email_verified"))).equals("true");
             }
-            if (name != null && isVerfied) {
+            if (name != null && isVerified) {
 
                 System.out.println("Authenticated actually");
 
                 login = name;
                 userGroups = new ArrayList<>();
                 userGroups.add("user");
+                loginCompleted = true;
                 return true;
             }
 
@@ -90,6 +88,10 @@ public class AuthLoginModule implements LoginModule{
 
     @Override
     public boolean commit() throws LoginException {
+        if (!loginCompleted){
+            System.out.println("at the Commit after being failed to login");
+            return false;
+        }
 
         userPrincipal = new UserPrincipal(login);
         subject.getPrincipals().add(userPrincipal);

@@ -1,20 +1,22 @@
-package oauth;
+package JaasSecurity;
 
 import java.io.Serializable;
 import java.security.Principal;
 
-public class RolePrincipal implements Principal, Serializable {
+class UserPrincipal implements Principal, Serializable {
+
+    private static final long serialVersionUID = 6365110489530791393L;
 
     private String name;
 
     @Override
     public String toString() {
-        return "RolePrincipal{" +
+        return "UserPrincipal{" +
                 "name='" + name + '\'' +
                 '}';
     }
 
-    public RolePrincipal(String name) {
+    public UserPrincipal(String name) {
         super();
         this.name = name;
     }
@@ -41,10 +43,9 @@ public class RolePrincipal implements Principal, Serializable {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        RolePrincipal other = (RolePrincipal) obj;
+        UserPrincipal other = (UserPrincipal) obj;
         if (name == null) {
             return other.getName() == null;
         } else return name.equals(other.getName());
     }
-
 }

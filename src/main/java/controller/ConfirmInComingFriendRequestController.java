@@ -10,15 +10,16 @@ import java.sql.Array;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-@WebServlet(urlPatterns = "/confirm")
-public class ConfirmFriendController extends HttpServlet {
+@WebServlet(urlPatterns = "/confirmInComingFriendRequest") // TODO confirm
+public class ConfirmInComingFriendRequestController extends HttpServlet {
 
     JDBC db = new JDBC();
 
     @Override
     public void service(HttpServletRequest req, HttpServletResponse res) throws IOException {
+
         String userId = req.getRemoteUser();
-        String friendId = (String) req.getSession().getAttribute("friendId");
+        String friendId = req.getParameter("friendId");
 
         if (friendId == null){
             res.sendRedirect("app");
@@ -59,13 +60,11 @@ public class ConfirmFriendController extends HttpServlet {
                 try {
                     db.dml("UPDATE public.\"USERS\" set \"FRIENDS\" = array_append(\"FRIENDS\", '" + friendId + "') where \"ID\"='" + userId + "';");
                     db.dml("UPDATE public.\"USERS\" set \"FRIENDS\" = array_append(\"FRIENDS\", '" + userId + "') where \"ID\"='" + friendId + "';");
+                    db.dml("delete from public.\"NOTIFICATION\" where \"RECIPIENT_ID\"='"+ userId +"' and \"SENDER_ID\"='"+ friendId +"';");
                 } catch (ClassNotFoundException | SQLException e) {
                     e.printStackTrace();
                 }
             }
-            res.setHeader("Cache-Control","no-cache, no-store, must-revalidate");
-            res.setHeader("Pragma", "no-cache");
-            res.setHeader("Expires", "0");
             res.sendRedirect("app");
         }
     }

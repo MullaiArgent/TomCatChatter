@@ -1,4 +1,4 @@
-<%@ page import="oauth.GoogleOAuth" %>
+<%@ page import="JaasSecurity.GoogleOAuth" %>
 <%@ page import="datamanagement.JDBC" %>
 <%@ page import="java.sql.SQLException" %>
 <%@ page import="java.sql.ResultSet" %>
@@ -68,10 +68,6 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" type="text/css" rel="stylesheet">
 
-    <meta name="google-signin-scope" content="profile email">
-    <meta name="google-signin-client_id" content="YOUR_CLIENT_ID.apps.googleusercontent.com">
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
-
 </head>
 <body>
 <%
@@ -80,8 +76,6 @@
 <div style="text-align: center;"> <h1> Login </h1> </div>
 <div class="container">
         <%
-
-
             final GoogleOAuth helper = new GoogleOAuth();
             if (request.getParameter("code") == null || request.getParameter("state") == null) {
 
@@ -100,26 +94,23 @@
                 out.println("<p>----------- or -----------</p>");
                 out.println("<button><a href='" + helper.buildLoginUrl() + "'> Login using Google </a></button>");
 
-
                 session.setAttribute("state", helper.getStateToken());
             } else if (request.getParameter("code") != null && request.getParameter("state") != null
                     && request.getParameter("state").equals(session.getAttribute("state"))) {
 
-
-
                 JDBC db = new JDBC();
 
                 String userinfo = helper.getUserInfoJson(request.getParameter("code"));
-                String picture = helper.getValues(userinfo,"picture");
-                String givenName =  helper.getValues(userinfo,"given_name");
-                String name = helper.getValues(userinfo,"name");
-                String email = helper.getValues(userinfo,"email");
-                boolean createNew = false;
+                String picture = GoogleOAuth.getValues(userinfo,"picture");
+                String givenName =  GoogleOAuth.getValues(userinfo,"given_name");
+                String name = GoogleOAuth.getValues(userinfo,"name");
+                String email = GoogleOAuth.getValues(userinfo,"email");
+                boolean createNew = true;
                 try {
-                    ResultSet rs = db.dql("SELECT ID FROM public.\"USERS\"");
+                    ResultSet rs = db.dql("SELECT \"ID\" FROM public.\"USERS\"");
                     while (rs.next()){
                         if(rs.getString(1).equals(email)){
-                            createNew = true;
+                            createNew = false;
                         }
                     }
 
@@ -138,12 +129,12 @@
                     out.println("</form>");
                 }else{
                     session.removeAttribute("state");
+                    out.println("<img src=" + picture + " alt=" + givenName + ">");
                     out.println("<form action=\"j_security_check\" method=\"POST\">");
                     out.println("<input type=\"text\" value=\""+email+"\" name=\"j_username\" hidden>");
-                    out.println("<input type=\"password\" value=\""+ helper.getAccessToken(request.getParameter("code")) +"\" name= \"j_password\" hidden>");
+                    out.println("<input type=\"password\" value=\""+ helper.getAccessToken() +"\" name= \"j_password\" hidden>");
                     out.println("<button type=\"submit\" value =\"check\">Login in as "+ givenName +" </button>");
                     out.println("</form>");
-                    //response.sendRedirect("app");
                 }
             }
         %>
