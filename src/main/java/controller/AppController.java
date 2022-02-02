@@ -1,6 +1,7 @@
 package controller;
 
 import Service.ChatService;
+import Service.NotificationService;
 import Service.RecentChatService;
 import model.ChatModel;
 import model.RecentChatModel;
@@ -20,12 +21,13 @@ public class AppController extends HttpServlet {
     public void service(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
         RecentChatService  recentChatService = new RecentChatService();
         ChatService chatService = new ChatService();
+        NotificationService notificationService = new NotificationService();
         String friendId = (String) req.getSession().getAttribute("friendId");
         try {
             List<RecentChatModel> recentChatModels = recentChatService.fetchRecent(req.getRemoteUser());
             req.setAttribute("recentChatModels", recentChatModels );
+            req.setAttribute("count","" + notificationService.fetchNotification(req).size());
             if (friendId != null) {
-                System.out.println("Calling chat Models");
                 List<ChatModel> chatModels = chatService.fetchChats(friendId, req);
                 req.setAttribute("chatModels",chatModels);
             }

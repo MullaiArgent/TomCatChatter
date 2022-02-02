@@ -17,12 +17,12 @@ public class SendFriendRequest extends HttpServlet {
     @Override
     public void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         String friendId = req.getParameter("addFriend");
+        req.getSession().setAttribute("friendId",friendId);
         try {
             ResultSet rs = db.dql("SELECT * FROM public.\"USERS\";");
             while (rs.next()){
                 if (friendId.equals(rs.getString(1))){
                     System.out.println("friend exist "+friendId); // TODO check if the requested is is already a friend
-                    req.getSession().setAttribute("friendId",friendId);
                     req.getSession().setAttribute("friendImage",rs.getString(3));
                     RequestDispatcher rd =  req.getRequestDispatcher("sendFriendRequest.jsp");
                     rd.forward(req, res);
@@ -30,9 +30,8 @@ public class SendFriendRequest extends HttpServlet {
                 }
             }
 
-            // TODO send a mail to join in the application
+            res.sendRedirect("invitation.jsp");
 
-            res.sendRedirect("app");
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }

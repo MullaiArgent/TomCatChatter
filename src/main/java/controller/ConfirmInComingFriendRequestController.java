@@ -60,12 +60,12 @@ public class ConfirmInComingFriendRequestController extends HttpServlet {
                 try {
                     db.dml("UPDATE public.\"USERS\" set \"FRIENDS\" = array_append(\"FRIENDS\", '" + friendId + "') where \"ID\"='" + userId + "';");
                     db.dml("UPDATE public.\"USERS\" set \"FRIENDS\" = array_append(\"FRIENDS\", '" + userId + "') where \"ID\"='" + friendId + "';");
-                    db.dml("delete from public.\"NOTIFICATION\" where \"RECIPIENT_ID\"='"+ userId +"' and \"SENDER_ID\"='"+ friendId +"';");
+                    db.dml("UPDATE public.\"NOTIFICATION\" set \"ACTIVITY_TYPE\" = 'accepted' where \"RECIPIENT_ID\"='"+ userId +"' and \"SENDER_ID\"='"+ friendId +"';");
                 } catch (ClassNotFoundException | SQLException e) {
                     e.printStackTrace();
                 }
             }
-            res.sendRedirect("app");
+            res.sendRedirect("notification");
         }
     }
 }

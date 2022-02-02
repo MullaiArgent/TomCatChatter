@@ -36,7 +36,6 @@ public class AuthLoginModule implements LoginModule{
         this.handler = callbackHandler;
         this.sharedState = sharedState;
         this.options = options;
-        System.out.println(subject + " from initialize");
     }
 
     @Override
@@ -60,15 +59,13 @@ public class AuthLoginModule implements LoginModule{
             try(BufferedReader br = new BufferedReader(
                     new InputStreamReader(con.getInputStream(), StandardCharsets.UTF_8))) {
                 StringBuilder response = new StringBuilder();
-                String responseLine = null;
+                String responseLine;
                 while ((responseLine = br.readLine()) != null) {
                     response.append(responseLine.trim());
                 }
                 isVerified = String.valueOf(Boolean.valueOf(GoogleOAuth.getValues(String.valueOf(response), "email_verified"))).equals("true");
             }
             if (name != null && isVerified) {
-
-                System.out.println("Authenticated actually");
 
                 login = name;
                 userGroups = new ArrayList<>();
@@ -89,7 +86,6 @@ public class AuthLoginModule implements LoginModule{
     @Override
     public boolean commit() throws LoginException {
         if (!loginCompleted){
-            System.out.println("at the Commit after being failed to login");
             return false;
         }
 
@@ -102,7 +98,6 @@ public class AuthLoginModule implements LoginModule{
                 subject.getPrincipals().add(rolePrincipal);
             }
         }
-        System.out.println(subject + " from commit");
 
         return true;
     }

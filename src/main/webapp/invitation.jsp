@@ -49,20 +49,41 @@
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" type="text/css" rel="stylesheet">
+
 </head>
 <body>
+<script>
+    function myCopyFunction() {
+        var copyText = document.getElementById("myInput");
+        copyText.select();
+        copyText.setSelectionRange(0, 99999);
+        navigator.clipboard.writeText(copyText.value);
+
+        var tooltip = document.getElementById("myTooltip");
+
+    }
+
+    function outFunc() {
+        var tooltip = document.getElementById("myTooltip");
+    }
+</script>
 <%
     response.setHeader("Cache-Control","no-cache, no-store, must-revalidate");
 %>
 <div style="text-align: center;">
-    <% out.println("<img src=" + request.getSession().getAttribute("friendImage") + ">"); %>
-    <h2> Add <%= request.getSession().getAttribute("friendId") %>  into your Friends list ?</h2>
+    <h2> Send Invitation to <%= request.getSession().getAttribute("friendId") %> </h2>
 </div>
 <div class="container">
-    <form action="confirmOutGoingFriendRequest" method="POST">
-        <button type="submit"  value = "confirm" name="confirm">Send Friend Request</button>
-        <br><br>
+    <form action="sendInvitation" method="POST">
+
+        <input type=text value=" http://localhost:8080/TomCatChatter_war/invitation?invited=<%= request.getRemoteUser() %> "  name="invitationUrl" id="myInput" required> <!-- invitation url-->
+
+        <button type="submit" value="confirm" name="confirm">Send Friend Request</button>
+        <!-- TODO the invitation URL-->
+        <br>
     </form>
+    <button onclick="myCopyFunction()" onmouseout="outFunc()">Copy Invitation URL</button>
+    <br>
     <form action="cancel_friend">
         <button type="submit">Cancel</button>
     </form>

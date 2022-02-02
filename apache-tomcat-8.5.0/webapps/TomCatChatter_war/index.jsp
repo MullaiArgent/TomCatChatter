@@ -286,7 +286,9 @@
 
             <!-- THE NOTIFICATION STUFFS STARTS HERE -->
             <form action="notification">
-            <button style="font-size:24px" class="notification">Notification <i class="material-icons" style="font-size:36px;color:red">notifications_none</i></button>
+                <button style="font-size:24px" class="notification"> <% out.println("Notifications("+ request.getAttribute("count") +")");%>
+                    <i class="material-icons" style="font-size:36px;color:red">notifications_none</i>
+                </button>
             </form>
 
             <!-- THE NOTIFICATION STUFFS ENDS HERE -->

@@ -10,7 +10,7 @@
 <html>
 <head>
     <style>
-        #fb{
+        .fb{
             width:500px;
             border:1px solid gray;
             border-radius:5px;
@@ -45,13 +45,13 @@
             top:52.5px;
         }
 
-        #info{
+        .info{
             position:absolute;
             left:120px;
             top:75px;
         }
 
-        #info {
+        .info {
             color:#4267B2;
             line-height:25px;
             font-size:18px;
@@ -104,26 +104,73 @@
                 out.println("You have no friend Requests");
             }
     %>
-
+    <form action="app" method="post">
+        <button type="submit"> Close </button>
+    </form>
+<br>
     <%--@elvariable id="notificationModels" type="java.util.List"--%>
     <c:forEach items="${notificationModels}" var="i">
-        <form action="confirmInComingFriendRequest" method="POST">
-        <div id="fb">
-            <img src="" height="100" width="100" alt="">
-            <label>
+        <c:if test="${i.getActivityType() == 'friend_request'}">
+            <form action="confirmInComingFriendRequest" method="POST">
+                <div class="fb">
+                    <img src="https://www.kindpng.com/picc/m/228-2289270_add-friends-add-friend-line-icon-hd-png.png" height="100" width="100" alt="">
+                    <label>
+                        <input value="${i.getSenderId()}" name="friendId" hidden>
+                    </label>
+                    <p class="info"><b></b><c:out value="${i.getSenderId()}"/><br></p>
+                    <div id="button-block">
+                        <button type="submit" id="confirm">Confirm</button>
+                    </div>
+                </div>
+            </form>
+            <form action="rejectIncomingFriendRequest" method="POST">
                 <input value="${i.getSenderId()}" name="friendId" hidden>
-            </label>
-            <p id="info"><b></b><c:out value="${i.getSenderId()}"/><br></p>
-            <div id="button-block">
-                <button type="submit" id="confirm">Confirm</button>
+                <button type="submit" id="delete">Delete Request</button>
+            </form>
+        </c:if>
 
+        <c:if test="${i.getActivityType() == 'invitation'}">
+            <div class="fb">
+                <img src="http://cdn.onlinewebfonts.com/svg/img_562642.png" height="100" width="100" alt="">
+                <p class="info"><br>
+                Invitation Sent to <c:out value="${i.getSenderId()}"/>
+                </p>
             </div>
-        </div>
-        </form>
-        <form action="rejectIncomingFriendRequest" method="POST">
-            <input value="${i.getSenderId()}" name="friendId" hidden>
-            <button type="submit" id="delete">Delete Request</button>
-        </form>
+        </c:if>
+
+        <c:if test="${i.getActivityType() == 'accepted'}">
+            <form action="chat" method="post">
+                <div class="fb">
+                    <img src="https://icon-library.com/images/request-icon-png/request-icon-png-27.jpg" height="100" width="100" alt="">
+                    <p class="info"><br>
+                       You have accepted  <c:out value="${i.getSenderId()}"/>'s Request
+                    </p>
+                    <label>
+                        <input  value="${i.getSenderId()}" name="friendId" hidden />
+                    </label>
+                    <div class="button-block">
+                        <button type="submit" class="confirm">Chat</button>
+                    </div>
+                </div>
+            </form> <!-- todo chat button -->
+
+        </c:if>
+        <c:if test="${i.getActivityType() == 'invitation_accepted'}">
+            <form action="chat" method="post">
+            <div class="fb">
+                <img src="https://icon-library.com/images/request-icon-png/request-icon-png-27.jpg" height="100" width="100" alt="">
+                <p class="info"><br>
+                    <c:out value="${i.getRecipientId()}"/> has accepted the Invitation
+                </p>
+                <label>
+                    <input  value="${i.getRecipientId()}" name="friendId" hidden />
+                </label>
+                <div class="button-block">
+                    <button type="submit" class="confirm">Chat</button>
+                </div>
+            </div>
+            </form>
+        </c:if>
     </c:forEach>
 
 </table>

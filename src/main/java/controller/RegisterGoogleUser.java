@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 @WebServlet(urlPatterns = "/registerGoogleUser")
-public class registerGoogleUser extends HttpServlet {
+public class RegisterGoogleUser extends HttpServlet {
 
     JDBC db = new JDBC();
 

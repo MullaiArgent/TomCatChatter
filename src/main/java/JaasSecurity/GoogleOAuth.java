@@ -80,7 +80,6 @@ public final class GoogleOAuth {
                 }
             }
         }
-        System.out.println("from the json editor" + value);
         if (key.equals("id_token")){
             return value.substring(2, value.length() - 1);
         }else{

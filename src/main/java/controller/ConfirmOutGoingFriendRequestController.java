@@ -24,7 +24,6 @@ public class ConfirmOutGoingFriendRequestController extends HttpServlet {
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
-        RequestDispatcher rd = req.getRequestDispatcher("app");
-        rd.forward(req, res);
+        res.sendRedirect("app");
     }
 }
