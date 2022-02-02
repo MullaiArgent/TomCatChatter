@@ -41,7 +41,6 @@ public class ChatModel {
         this.message = message;
     }
 
-
     public String getType() {
         return type;
     }
