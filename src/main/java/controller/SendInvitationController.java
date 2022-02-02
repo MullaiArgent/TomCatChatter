@@ -17,7 +17,8 @@ import javax.mail.Session;
 @WebServlet(urlPatterns = "/sendInvitation")
 public class SendInvitationController extends HttpServlet {
     static String host = "smtp.gmail.com";
-    static String user = "mullairajan2000@gmail.com";
+    static String user = ""; // the Mail id
+";
     JDBC db = new JDBC();
 
     @Override
@@ -33,8 +34,8 @@ public class SendInvitationController extends HttpServlet {
         properties.put("mail.smtp.host","smtp.gmail.com");
         properties.put("mail.smtp.port","587");
 
-        final String domainMail = "mullairajan2000@gmail.com";
-        final String password = "@TeslaGmail2000";
+        final String domainMail = ""; // The Mail
+        final String password = ""; // The Password
 
         Session session = Session.getInstance(properties, new Authenticator() {
             @Override
