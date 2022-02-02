@@ -18,7 +18,6 @@ import javax.mail.Session;
 public class SendInvitationController extends HttpServlet {
     static String host = "smtp.gmail.com";
     static String user = ""; // the Mail id
-";
     JDBC db = new JDBC();
 
     @Override
